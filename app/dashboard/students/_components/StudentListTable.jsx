@@ -14,14 +14,51 @@ const paginationPageSize = 10;
 // allows the user to select the page size from a predefined list of page sizes
 const paginationPageSizeSelector = [10, 20, 50, 100];
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import GlobalApi from '@/app/_services/GlobalApi';
+import { toast } from 'sonner';
 
 
-function StudentListTable({studentList}) {
+function StudentListTable({studentList,refreshData}) {
     const [rowData, setRowData] = useState();
 
     const[searchInput,setSearchInput] = useState()
 
+    const customButtons=(props)=>{
+    return (
+            <div>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button size='sm'><Trash /></Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete your record
+                            and remove your data from our servers.
+                        </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={()=>DeleteRecord(props?.data?.id)}>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+        
+        </div>
+    )
+}
     const [colDefs, setColDefs] = useState([
         {field:"id",filter:true },
         {field:"name",filter:true },
@@ -34,9 +71,15 @@ function StudentListTable({studentList}) {
         studentList&&setRowData(studentList)
     },[studentList])
 
-    const customButtons=({props})=>{
-    return <Button><Trash /></Button>
-}
+    const DeleteRecord=(id)=>{
+        GlobalApi.DeleteStudentRecord(id).then(resp=>{
+            if(resp){
+                toast('Record Deleted Successfully')
+                refreshData();
+            }
+        })
+    }
+    
   return (
     <div className='my-7'>
         <div className='flex p-2 rounded-lg border shadow-sm gap-2 mb-4 max-w-sm'>
