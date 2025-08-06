@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { AgGridReact } from 'ag-grid-react';
-import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'; 
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { Button } from '@/components/ui/button';
 import { Search, Trash } from 'lucide-react';
+
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -13,14 +14,14 @@ const paginationPageSize = 10;
 // allows the user to select the page size from a predefined list of page sizes
 const paginationPageSizeSelector = [10, 20, 50, 100];
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
-const customButtons=({props})=>{
-    return <Button><Trash /></Button>
-}
 
 function StudentListTable({studentList}) {
     const [rowData, setRowData] = useState();
+
     const[searchInput,setSearchInput] = useState()
+
     const [colDefs, setColDefs] = useState([
         {field:"id",filter:true },
         {field:"name",filter:true },
@@ -32,6 +33,10 @@ function StudentListTable({studentList}) {
     useEffect(()=>{
         studentList&&setRowData(studentList)
     },[studentList])
+
+    const customButtons=({props})=>{
+    return <Button><Trash /></Button>
+}
   return (
     <div className='my-7'>
         <div className='flex p-2 rounded-lg border shadow-sm gap-2 mb-4 max-w-sm'>
@@ -39,11 +44,11 @@ function StudentListTable({studentList}) {
             <input type='text' placeholder='Search about students...' className='outline-none w-full'
             onChange={(event)=>setSearchInput(event.target.value)} />
         </div>
-        <div style={{ height: 500 }}>
+        <div className='rounded-md border' style={{ height: 500}}>
                 <AgGridReact
                     rowData={rowData}
                     columnDefs={colDefs}
-        
+                    onGridReady={(params) => params.api.sizeColumnsToFit()} //for fit to all cloumn
                     pagination={pagination}
                     paginationPageSize={paginationPageSize}
                     paginationPageSizeSelector={paginationPageSizeSelector}
