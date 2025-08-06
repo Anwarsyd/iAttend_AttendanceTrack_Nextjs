@@ -13,3 +13,9 @@ export async function POST(req,res){
     })
     return NextResponse.json(result)
 }
+
+export async function GET(req) {
+    const result = await db.select().from(STUDENTS)
+
+    return NextResponse.json(result)
+}

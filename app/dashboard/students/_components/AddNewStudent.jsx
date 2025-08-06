@@ -15,12 +15,15 @@ import { useForm } from "react-hook-form";
 import { Input } from '@/components/ui/input'
 import GlobalApi from '@/app/_services/GlobalApi';
 import { Item } from '@radix-ui/react-select';
+import { toast } from 'sonner';
+import { LoaderIcon } from 'lucide-react';
 
 function AddNewStudent() {
     const [open,setOpen] = useState(false)
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit,reset, watch, formState: { errors } } = useForm();
     const [grades,setgrades]= useState([])
+    const[loading,setLoading] = useState(false)
 
     useEffect(()=>{
         getAllGrades()
@@ -34,10 +37,17 @@ function AddNewStudent() {
     }
 
     const onSubmit =(data)=>{
-        console.log("FormData",data);
+        // console.log("FormData",data);
+        setLoading(true)
         GlobalApi.CreateNewStudent(data).then(resp=>{
             console.log('--',resp);
-            
+            if(resp.data){
+                
+                reset()
+                setOpen(false)
+                toast('New Student Added')
+            }
+            setLoading(false)
         })
         
     }
@@ -82,8 +92,8 @@ function AddNewStudent() {
                 </div>
 
                 <div className='flex items-center justify-end mt-5 gap-3'>
-                    <Button onClick={()=>setOpen(false)} variant='ghost'>Cancel</Button>
-                    <Button type="submit">Save</Button>
+                    <Button type='button' onClick={()=>setOpen(false)} variant='ghost'>Cancel</Button>
+                    <Button type="submit" disabled={loading}>{loading ? <LoaderIcon className='animate-spin'/>:'Save'}</Button>
                 </div>
             </form>
         </DialogContent>
