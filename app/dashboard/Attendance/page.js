@@ -1,9 +1,15 @@
+import MonthSelection from '@/app/_components/MonthSelection'
 import React from 'react'
 
 function Attendance() {
   return (
-    <div>
-      <h1>Attendance Page</h1>
+    <div className='p-7'>
+      <h1 className='text-2xl font-bold'>Attendance</h1>
+
+      {/* Search option */}
+
+      <MonthSelection />
+      {/* Select Attendance Grid */}
     </div>
   )
 }
