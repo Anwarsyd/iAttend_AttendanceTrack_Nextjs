@@ -26,7 +26,7 @@ function SideNav() {
       id:3,
       name : 'Attendance',
       icon:Hand,
-      path:'/dashboard/Attendance'
+      path:'/dashboard/attendance'
     },
     {
       id:4,

@@ -5,7 +5,7 @@ import GlobalApi from '@/app/_services/GlobalApi'
 import { Button } from '@/components/ui/button'
 import moment from 'moment'
 import React, { useState } from 'react'
-import AttendenceGrid from './_components/AttendenceGrid'
+import AttendanceGrid from './_components/AttendanceGrid'
 
 function Attendance() {
 
@@ -15,12 +15,13 @@ function Attendance() {
 
   // used for fetch attendance list for give month and grade
   const onSearchHandler=()=>{ 
-    console.log(selectedMonth,selectedGrade);
+    // console.log(selectedMonth,selectedGrade);
     const month=moment(selectedMonth).format('MM/YYYY')
     console.log(month);
     
     GlobalApi.GetAttendanceList(selectedGrade,month).then(resp=>{
       setAttendanceList(resp.data);
+      // console.log(resp.data)
       
     })
     
@@ -42,12 +43,12 @@ function Attendance() {
           <label>Select Grade:</label>
           <GradeSelect selectedGrade={(value)=>setSelectedGrade(value)}/>
         </div>
-        <Button onClick={()=>onSearchHandler()}>Search</Button>
+        <Button onClick={()=>onSearchHandler()} className='mt-2 ml-1'>Search</Button>
       </div>
 
 
       {/* Select Attendance Grid */}
-      <AttendenceGrid attendanceList={attendanceList} />
+      <AttendanceGrid attendanceList={attendanceList} selectedMonth={selectedMonth}/>
     </div>
   )
 }

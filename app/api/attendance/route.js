@@ -15,7 +15,7 @@ export async function GET(req) {
         day:ATTENDANCE.day,
         date:ATTENDANCE.date,
         grade:STUDENTS.grade,
-        StudentId:STUDENTS.id,
+        studentId:STUDENTS.id,
         attendanceId:ATTENDANCE.id
     }).from(STUDENTS).leftJoin(ATTENDANCE,eq(STUDENTS.id,ATTENDANCE.studentId))
     .where(eq(STUDENTS.grade,grade)).where(
