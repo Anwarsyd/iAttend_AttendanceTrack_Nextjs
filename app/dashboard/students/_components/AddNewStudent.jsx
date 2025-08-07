@@ -26,9 +26,9 @@ function AddNewStudent() {
     const[loading,setLoading] = useState(false)
 
     useEffect(()=>{
-        getAllGrades()
+        getAllGradesList()
     },[])
-    const getAllGrades =()=>{
+    const getAllGradesList =()=>{
         GlobalApi.GetAllGrades().then(resp=>{
             // console.log(resp.data);
             setgrades(resp.data)
@@ -78,7 +78,7 @@ function AddNewStudent() {
 
                     <select className='p-3 border rounded-lg' {...register('grade',{required:true})}>
                         {grades.map((value,index)=>(
-                            <option key={index} value={Item.grade}>{value.grade}</option>
+                            <option key={index} value={value.grade}>{value.grade}</option>
                         ))}
                     </select>
                 </div>
