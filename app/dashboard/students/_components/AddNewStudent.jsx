@@ -18,7 +18,7 @@ import { Item } from '@radix-ui/react-select';
 import { toast } from 'sonner';
 import { LoaderIcon } from 'lucide-react';
 
-function AddNewStudent() {
+function AddNewStudent({refreshData}) {
     const [open,setOpen] = useState(false)
 
     const { register, handleSubmit,reset, watch, formState: { errors } } = useForm();
@@ -44,6 +44,7 @@ function AddNewStudent() {
             if(resp.data){
                 
                 reset()
+                refreshData()
                 setOpen(false)
                 toast('New Student Added')
             }

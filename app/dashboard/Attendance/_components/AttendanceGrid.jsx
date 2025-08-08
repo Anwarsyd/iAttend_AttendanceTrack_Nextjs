@@ -6,18 +6,25 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 import { AgGridReact } from 'ag-grid-react';
 import moment from 'moment';
+import GlobalApi from '@/app/_services/GlobalApi';
+import { toast } from 'sonner';
 
+const pagination = true;
+
+const paginationPageSize = 10;
+
+const paginationPageSizeSelector = [10, 20, 50, 100];
 
 function AttendenceGrid({attendanceList,selectedMonth}) {
 
     const [rowData,setRowData]=useState()
     const [colDefs,setColDefs]=useState([
-        { field : 'studentId'},
-        { field : 'name'},
+        { field : 'studentId',filter:true},
+        { field : 'name',filter:true},
     ])
 
     //days in month
-    const daysInMonth=(year,month)=>new Date(year,month+1,0).getDate()
+    const daysInMonth=(year,month)=>new Date(year,month,0).getDate()
     const numberOfDays=daysInMonth(moment(selectedMonth).format('yyyy'),moment(selectedMonth).format('MM'))
     console.log(numberOfDays)
 
@@ -68,6 +75,29 @@ function AttendenceGrid({attendanceList,selectedMonth}) {
 
         return result?true:false
     }
+
+    const onMarkAttendance=(day,studentId,presentStatus)=>{
+
+        const date = moment(selectedMonth).format('MM/yyyy')
+        if(presentStatus){
+            const data ={
+                day:day,
+                studentId:studentId,
+                present:presentStatus,
+                date:date
+            }
+            GlobalApi.MarkAttendance(data).then(resp=>{
+                // console.log(resp);
+                toast("Student id:" +studentId+ "Mark as Present")
+                
+            })
+        }
+        else{
+            GlobalApi.MarkAbsent(studentId,day,date).then(resp=>{
+                toast("Student id:"+studentId+ "Mark as Absent")
+            })
+        }
+    }
     
     
   return (
@@ -76,6 +106,13 @@ function AttendenceGrid({attendanceList,selectedMonth}) {
             <AgGridReact
                 rowData={rowData}
                 columnDefs={colDefs}
+
+                onCellValueChanged={(event)=>onMarkAttendance(event.colDef.field,event.data.studentId,event.newValue)}
+
+                pagination={pagination}
+                paginationPageSize={paginationPageSize}
+                paginationPageSizeSelector={paginationPageSizeSelector}
+
             />
         </div>
     </div>
