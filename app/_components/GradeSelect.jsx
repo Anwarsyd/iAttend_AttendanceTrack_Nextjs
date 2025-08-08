@@ -18,7 +18,7 @@ function GradeSelect({selectedGrade}) {
   return (
     <div>
       <div>
-          <select className='p-3 border rounded-lg' onChange={(event)=>selectedGrade(event.target.value)}>
+          <select className='p-2 border rounded-lg' onChange={(event)=>selectedGrade(event.target.value)}>
               {grades.map((value,index)=>(
                   <option key={index} value={value.grade}>{value.grade}</option>
               ))}

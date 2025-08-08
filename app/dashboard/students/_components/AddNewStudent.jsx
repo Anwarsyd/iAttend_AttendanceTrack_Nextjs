@@ -55,7 +55,7 @@ function AddNewStudent({refreshData}) {
 
   return (
     <div>
-      <Button onClick={()=>setOpen(true)}>+Add New Button</Button>
+      <Button onClick={()=>setOpen(true)}>+Add New Student</Button>
       <Dialog open={open}>
         <DialogContent>
             <DialogHeader>

@@ -63,6 +63,7 @@ function StudentListTable({studentList,refreshData}) {
         {field:"id",filter:true },
         {field:"name",filter:true },
         {field:"address",filter:true },
+        {field:"grade",filter:true},
         {field:"contact",filter:true },
         {field:"action",cellRenderer:customButtons}
     ]);
