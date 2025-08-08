@@ -1,5 +1,7 @@
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import Card from './Card'
+import { GraduationCap, TrendingDown, TrendingUp } from 'lucide-react'
 
 function StatusList({attendanceList}) {
 
@@ -10,12 +12,11 @@ function StatusList({attendanceList}) {
         if(attendanceList){
             const totalStuds =  getUniqueRecord(attendanceList)
             setTotalStudent(totalStuds)
-            console.log(totalStuds);
-            
+            setTotalStudent(totalStuds.length); // store number, not array
 
-            const today = moment().format('D')
-            const presentPerc = (attendanceList.length/(totalStuds.length*Number(today))*100) 
-            console.log(presentPerc);
+            const today = moment().format('D');
+            const presentPerc = (attendanceList.length / (totalStuds.length * Number(today)) * 100);
+            setPresentPercentage(presentPerc);
             
         }
     },[attendanceList])
@@ -35,7 +36,9 @@ function StatusList({attendanceList}) {
     }
   return (
     <div>
-      <h2>Status List</h2>
+      <Card icon={<GraduationCap/>} title="Total Student" value={totalStudent}/>
+      <Card icon={<TrendingUp/>} title="Total % Present" value={presentPercentage.toFixed(1)}/>
+      <Card icon={<TrendingDown/>} title="Total % Absent" value={(100 - presentPercentage).toFixed(1)}/>
     </div>
   )
 }
