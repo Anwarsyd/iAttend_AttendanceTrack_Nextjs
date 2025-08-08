@@ -13,7 +13,9 @@ function Dashboard() {
   },[])
   return (
     <div>
-      <div>Page</div>
+      <div className='p-7'>
+        <h2 className='font-bold text-2xl'>Dashboard</h2>
+      </div>
     </div>
   )
 }
