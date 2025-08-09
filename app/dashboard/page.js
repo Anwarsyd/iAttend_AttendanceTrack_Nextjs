@@ -23,15 +23,11 @@ function Dashboard() {
     // setTheme("dark")
     // setTheme("light")
     // setTheme("system")
-
+    getTotalPresentCountByDay();
     getStudentAttendance()
-    getTotalPresentCountByDay();
-  },[selectedMonth])
+    
+  },[selectedMonth||selectedGrade])
 
-   useEffect(()=>{
-    getStudentAttendance();
-    getTotalPresentCountByDay();
-  },[selectedGrade])
 
   //used to get student Attendanve for given month and Date
   const getStudentAttendance=()=>{

@@ -11,9 +11,9 @@ export async function GET(req) {
     const result = await db.select({
         day:ATTENDANCE.day,
         presetCount:sql`count(${ATTENDANCE.day})`
-    }).from(ATTENDANCE).leftJoin(STUDENTS,eq(ATTENDANCE.studentId,STUDENTS.id))
+    }).from(ATTENDANCE).leftJoin(STUDENTS,and(eq(ATTENDANCE.studentId,STUDENTS.id),(eq(ATTENDANCE.date,date))))
     .groupBy(ATTENDANCE.day)
-    .where(and(eq(ATTENDANCE.date,date),eq(STUDENTS.grade,grade)))
+    .where(eq(STUDENTS.grade,grade))
     .orderBy(desc(ATTENDANCE.day)).limit(7)
 
     return NextResponse.json(result)
