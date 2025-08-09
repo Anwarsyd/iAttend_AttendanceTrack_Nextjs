@@ -12,7 +12,7 @@ const MarkAttendance =(data)=>axios.post('/api/attendance',data)
 
 const MarkAbsent=(studentId,day,date)=>axios.delete(`/api/attendance?studentId=${studentId}&day=${day}&date=${date}`)
 
-const TotalPresentCountByDay=(date,grade)=>axios.get('/api/dashboard')
+const TotalPresentCountByDay=(date,grade)=>axios.get(`/api/dashboard?date=${date}&grade=${grade}`)
 export default {
     GetAllGrades,
     CreateNewStudent,

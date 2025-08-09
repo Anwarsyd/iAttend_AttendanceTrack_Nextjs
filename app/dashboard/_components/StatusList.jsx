@@ -12,11 +12,15 @@ function StatusList({attendanceList}) {
         if(attendanceList){
             const totalStuds =  getUniqueRecord(attendanceList)
             setTotalStudent(totalStuds)
-            setTotalStudent(totalStuds.length); // store number, not array
+            setTotalStudent(totalStuds.length);
 
             const today = moment().format('D');
-            const presentPerc = (attendanceList.length / (totalStuds.length * Number(today)) * 100);
+            const presentCount = attendanceList.filter(a => a.present === true).length;
+            const totalPossible = totalStuds.length * Number(today);
+            const presentPerc = (presentCount / totalPossible) * 100;
             setPresentPercentage(presentPerc);
+            // console.log(presentPerc);
+            
             
         }
     },[attendanceList])

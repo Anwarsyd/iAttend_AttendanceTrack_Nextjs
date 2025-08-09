@@ -17,16 +17,19 @@ function Dashboard() {
   const [attendanceList,setAttendanceList] = useState()
 
 
+
   useEffect(()=>{
     // setTheme("dark")
     // setTheme("light")
     // setTheme("system")
 
     getStudentAttendance()
+    getTotalPresentCountByDay();
   },[selectedMonth])
 
    useEffect(()=>{
-    getStudentAttendance()
+    getStudentAttendance();
+    getTotalPresentCountByDay();
   },[selectedGrade])
 
   //used to get student Attendanve for given month and Date
@@ -36,6 +39,17 @@ function Dashboard() {
         
       })
   }
+
+  //get the total present on each day
+  const getTotalPresentCountByDay=()=>{
+  GlobalApi.TotalPresentCountByDay(
+    moment(selectedMonth).format('MM/yyyy'),
+    selectedGrade
+  ).then(resp=>{
+    console.log(resp.data);
+  })
+}
+
   return (
     <div>
       <div className='p-7'>
