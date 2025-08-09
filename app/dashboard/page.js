@@ -6,6 +6,7 @@ import GradeSelect from '../_components/GradeSelect'
 import GlobalApi from '../_services/GlobalApi'
 import moment from 'moment'
 import StatusList from './_components/StatusList'
+import BarChartComponent from './_components/BarChartComponent'
 
 function Dashboard() {
 
@@ -15,7 +16,7 @@ function Dashboard() {
   const [selectedGrade,setSelectedGrade] = useState();
 
   const [attendanceList,setAttendanceList] = useState()
-
+  const [totalPresentData,setTotalPresentData] = useState();
 
 
   useEffect(()=>{
@@ -42,11 +43,8 @@ function Dashboard() {
 
   //get the total present on each day
   const getTotalPresentCountByDay=()=>{
-  GlobalApi.TotalPresentCountByDay(
-    moment(selectedMonth).format('MM/yyyy'),
-    selectedGrade
-  ).then(resp=>{
-    console.log(resp.data);
+  GlobalApi.TotalPresentCountByDay(moment(selectedMonth).format('MM/yyyy'),selectedGrade).then(resp=>{
+    setTotalPresentData(resp.data);
   })
 }
 
@@ -63,6 +61,15 @@ function Dashboard() {
         </div>
 
         <StatusList attendanceList={attendanceList} />
+
+        <div className='grid grid-cols-1 md:grid-cols-3'>
+          <div className='md:col-span-2'>
+            <BarChartComponent attendanceList={attendanceList} totalPresentData={totalPresentData} />
+          </div>
+          <div>
+
+          </div>
+        </div>
       </div>
     </div>
   )
