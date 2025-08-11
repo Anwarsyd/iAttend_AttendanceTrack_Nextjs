@@ -40,7 +40,7 @@ function BarChartComponent({attendanceList,totalPresentData}) {
     <div className='p-5 border rounded-lg shadow-sm'>
         <h2 className='my-2 font-bold text-lg'>Attendance</h2>
         <ResponsiveContainer width={'100%'} height={300}>
-            <BarChart width={500} height={250} data={data}>
+            <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="day" />
                 <YAxis />

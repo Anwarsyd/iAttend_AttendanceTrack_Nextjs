@@ -42,5 +42,21 @@
     "drizzle-kit": "^0.31.4",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.6"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "drizzle.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anwarsyd/iAttend_AttendanceTrack_Nextjs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anwarsyd/iAttend_AttendanceTrack_Nextjs/issues"
+  },
+  "homepage": "https://github.com/Anwarsyd/iAttend_AttendanceTrack_Nextjs#readme"
 }
